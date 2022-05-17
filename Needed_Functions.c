@@ -30,7 +30,7 @@ void pause_display( unsigned char remaining_time )
    LCD_Cmd(0xC0);
    LCD_Write_Char(remaining_time);
 }
-void Stopcooking_dispaly ()	
+void Stopcooking_dispaly (void)	
 {
    LCD_Cmd(0x01); 
    LCD_Cmd(0x80); 
@@ -40,8 +40,8 @@ void Stopcooking_dispaly ()
 }
 
 unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)
-{ int x;
-
+{ 
+	unsigned char x;
   x = BUTTON_u8READ(portname,pinumber);    
   if(x == 1)
 {
