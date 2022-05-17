@@ -1,3 +1,25 @@
+void LCD_error_msg(void)
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Err");
+	TIMER_SEC(2);				/*no check here*/
+}
+
+void LCD_error_msg2(void)
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Please enter a valid time");
+}
+
+void LCD_error_msg3(void)
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Please enter a valid number");
+}
+
 void pause_display( unsigned char remaining_time ) 
 {  
    LCD_Cmd(0x01);
