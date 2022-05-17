@@ -1,3 +1,10 @@
+void Display_Start(void)
+{
+		LCD_Cmd(0x01);
+		LCD_Cmd(0x80);
+		LCD_Write_String("Please Choose an Option");
+}
+
 void LCD_error_msg(void)
 {
 	LCD_Cmd(0x01);
@@ -40,6 +47,24 @@ void Stopcooking_dispaly (void)
 		TIMER_SEC(2);
 }
 
+unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small)
+{
+	unsigned char time_sec;
+	
+	time_sec = 60*10*minutes_big+60*minutes_small+10*seconds_big+seconds_small;
+	return time_sec;
+	//if choose (D) enter Total time in seconds in function Start Cooking
+}
+
+void check_Sw3 
+	(if ( BUTTON_u8READ(  portname, pinumber) == 1) // switch 3 is pressed
+				LCD_Cmd(0x01);
+	      LCD_Cmd(0x80);
+	LCD_Write_String("Close the Door");
+	else
+		 start Cooking(Cooking_Time)
+			)
+	
 unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)  //check sw1,sw2 
 { 
 	unsigned char x;
