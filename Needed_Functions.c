@@ -37,9 +37,10 @@ void Stopcooking_dispaly (void)
    LCD_Write_String("Cooking");
    LCD_Cmd(0xc0);
    LCD_Write_String("stopped!");
+		TIMER_SEC(2);
 }
 
-unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)
+unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)  //check sw1,sw2 
 { 
 	unsigned char x;
   x = BUTTON_u8READ(portname,pinumber);    
@@ -49,4 +50,10 @@ unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)
 }
 else
    return 1;
+}
+void LCD_Write_Weight(unsigned char weight)   //Writes the given weight on the LCD screen
+{
+	LCD_Write_Char(weight);
+	LCD_Write_String("Kg");
+	TIMER_SEC(2);
 }
