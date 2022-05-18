@@ -50,8 +50,10 @@ void Stopcooking_dispaly (void)
 unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small)
 {
 	unsigned char time_sec;
-	
-	time_sec = 60*10*minutes_big+60*minutes_small+10*seconds_big+seconds_small;
+	unsigned char minutes=minutes_big*10+minutes_small;
+	unsigned char seconds=seconds_big*10+seconds_small;
+	Valid_time(minutes,seconds);
+	time_sec = 60*minutes+seconds;
 	return time_sec;
 	//if choose (D) enter Total time in seconds in function Start Cooking
 }
