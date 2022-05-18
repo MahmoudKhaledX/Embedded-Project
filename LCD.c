@@ -1,14 +1,19 @@
 #include "TM4C123.h" /* include register definition file of TM4C123GH6PM */
 #include "TimerH.h"
+#include "MacrosH.h"
+#include "tm4c123gh6pm.h"
 #define LCD GPIOB   /* Define "LCD" as a symbolic name for GPIOB */
 #define RS 0x20 /* PORTB BIT5 mask */
 #define RW 0x40 /* PORTB BIT6 mask */
 #define EN 0x80 /* PORTB BIT7 mask */
 #define HIGH 1
 #define LOW 0
+
+#define LCD_DATA       							(*((volatile unsigned long *)0x400053FC))
 #define LCD_DIR                     (*((volatile unsigned long *)0x40005400))
 #define LCD_DEN                     (*((volatile unsigned long *)0x4000551C))
-#define SYSCTL_RCGCGPIO                (*((volatile unsigned long *)0x400FE608))	
+#define SYSCTL_RCGCGPIO             (*((volatile unsigned long *)0x400FE608))
+	
 /*define useful symbolic names for LCD commands */
 #define clear_display     0x01
 #define returnHome        0x02
@@ -36,7 +41,11 @@ void LCD_String (char str);	/* Send string to LCD function */
 
 /* LCD and GPIOB initialization Function */ 
 void LCD_init(void)
-{ SYSCTL_RCGCGPIO |=(1<<1); /* Enable Clock to GPIOB */
+{ 
+ SYSCTL_RCGCGPIO |=(1<<1); /* Enable Clock to GPIOB */
+ while(READ_BIT(SYSCTL_RCGCGPIO,1)==0){}
+ GPIO_PORTB_LOCK_R =0x4C4F434B;
+ GPIO_PORTB_PCTL_R &= ~0xFFFFFFFF;
  LCD_DIR |=0xFF; /* Set GPIOB all pins a digital output pins */
  LCD_DEN |=0xFF; /* Declare GPIOB pins as digital pins */
 
@@ -65,11 +74,11 @@ void LCD_Write_Nibble(unsigned char data, unsigned char control)
 
     data &= 0xF0;       /* Extract upper nibble for data */
     control &= 0x0F;    /* Extract lower nibble for control */
-    LCD->DATA = data | control;       /* Set RS and R/W to zero for write operation */
-    LCD->DATA = data | control | EN;  /* Provide Pulse to Enable pin to perform write operation */
+    LCD_DATA = data | control;       /* Set RS and R/W to zero for write operation */
+    LCD_DATA = data | control | EN;  /* Provide Pulse to Enable pin to perform write operation */
     TIMER_uS(0);
-    LCD->DATA = data; /*Send data */
-    LCD->DATA = 0; /* stop writing data to LCD */
+    LCD_DATA = data; /*Send data */
+    LCD_DATA = 0; /* stop writing data to LCD */
 }
 void LCD_Write_Char(unsigned char data)
 {
@@ -79,7 +88,7 @@ void LCD_Write_Char(unsigned char data)
 }
 
 
-void LCD_String (char *str)	/* Send string to LCD function */
+void LCD_Write_String (char *str)	/* Send string to LCD function */
 {
 	int i;
 	for(i=0;str[i]!='\0';i++)  /* Send each char of string till the NULL */
@@ -87,4 +96,3 @@ void LCD_String (char *str)	/* Send string to LCD function */
 		LCD_Write_Char(str[i]);  /* Call LCD data write */
 	}
 }
-
