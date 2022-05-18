@@ -56,14 +56,18 @@ unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,
 	//if choose (D) enter Total time in seconds in function Start Cooking
 }
 
-void check_Sw3 
-	(if ( BUTTON_u8READ(  portname, pinumber) == 1) // switch 3 is pressed
-				LCD_Cmd(0x01);
-	      LCD_Cmd(0x80);
+void check_SW3(unsigned char portname,unsigned char pinumber)
+	/* check sw3 at the beginning, Commands may be deleted if you use it in the main as a while loop condition	*/
+{	
+	if(BUTTON_u8READ('D',2)==0)
+	{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
 	LCD_Write_String("Close the Door");
-	else
-		 start Cooking(Cooking_Time)
-			)
+	while ( BUTTON_u8READ('D',2) == 0)
+		{}
+	}
+}
 	
 unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber)  //check sw1,sw2 
 { 
