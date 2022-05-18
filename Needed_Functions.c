@@ -82,3 +82,21 @@ void LCD_Write_Weight(unsigned char weight)   //Writes the given weight on the L
 	LCD_Write_String("Kg");
 	TIMER_SEC(2);
 }
+void Valid_time(unsigned char minutes,unsigned char seconds)
+{
+	if(minutes>30 || (minutes == 0 && seconds == 0))
+	{
+		LCD_error_msg2();
+	}
+	else if(minutes==30)
+	{
+		if(seconds>0)
+		{
+			LCD_error_msg2();
+		}
+		else
+		{}
+	}
+	else
+	{}
+}
