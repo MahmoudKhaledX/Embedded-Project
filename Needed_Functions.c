@@ -100,3 +100,17 @@ void Valid_time(unsigned char minutes,unsigned char seconds)
 	else
 	{}
 }
+void LCD_error_msg4(void)
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Please choose a valid option");
+	check_SW3('D',2);
+}
+unsigned char Valid_Input(unsigned char Input)  // Checks if the input given is valid or not
+{
+		if (0<Input && Input<10)
+			return 1;
+		else
+			return 0;
+}
