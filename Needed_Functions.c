@@ -44,7 +44,7 @@ void Stopcooking_dispaly (void)
    LCD_Write_String("Cooking");
    LCD_Cmd(0xc0);
    LCD_Write_String("stopped!");
-		TIMER_SEC(2);
+	 TIMER_SEC(2);
 }
 
 unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small)
