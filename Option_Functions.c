@@ -56,42 +56,39 @@ unsigned char Button_C_Pushed (void)
 		goto Check;
 	}
 }
-while(KEYPAD_u8READ(dakhalo hena port_Outname,port_inname ==0xFF)
-{}
-unsigned char input=KEYPAD_u8READ;
-if(input=="D")
+unsigned char Button_D_Pushed()
 {
-
-clear lcd function ;
-print lcd function ("cooking timee") ;
-
-unsigned char seconds_small=0,seconds_big=0,minutes_small=0,minutes_big =0 ;
-unsigned char i=0;
-for(i=0;i<4;i++)
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+  LCD_Write_String("cooking time?") ;
+  unsigned char seconds_small=0;
+	unsigned char seconds_big=0; 
+	unsigned char minutes_small=0;
+	unsigned char minutes_big =0 ;
+  unsigned char i;
+	LCD_Cmd(0x85);
+	LCD_Write_String("00:00");
+  for(i=0;i<4;i++)
+	{
+	 TIMER_MS(700);
+	 minutes_big=minutes_small;
+   minutes_small=seconds_big;
+   seconds_big=seconds_small;
+   seconds_small=KEYPAD_u8READ('C','E');
+	 Display_LCD_D(seconds_small,seconds_big,minutes_small,minutes_big);
+while(KEYPAD_u8READ2('C','E') ==0xFF)
 {
-while(KEYPAD_u8READ(dakhalo hena port_Outname,port_inname ==0xFF)
-{}
-minutes_big=minutes_small;
-minutes_small=seconds_big;
-seconds_big=seconds_small;
-seconds_small=KEYPAD_u8READ((dakhalo hena port_Outname,port_inname);
-use lcd print function to print minutes_big minutes_small : seconds_big seconds_small
-while(KEYPAD_u8READ(dakhalo hena port_Outname,port_inname ==0xFF)
-{
-if(SW1==0)
-{LCD FUNCTION TO CLEAR
-	i=0
+if(check_SWITCHES('F',4)==1)
+	LCD_Cmd(0x01);
+	i=0;
 }
-if(SW2==0)
+if(check_SWITCHES('F',0)==1)
 {
-i=4
+i=4;
 break;
-
 }
-
-
-
 }
-
-
+	unsigned char Total_Time;
+	Total_Time=Time_to_Sec(minutes_big,minutes_small,seconds_big,seconds_small);
+	return(Total_Time);
 }
