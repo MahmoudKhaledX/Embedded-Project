@@ -5,7 +5,9 @@
 #include "MacrosH.h"
 #include "tm4c123gh6pm.h"
 void KEYPAD_INIT(unsigned char OUT_portname,unsigned char IN_portname)//Intialize 2 ports to be used for keypad , firt 4 pins in OUT_portname is intialized to be output
-{																																			//Intialize 2 ports to be used for keypad , highest 4 pins in IN_portname is intialized to be input pull up bottons	
+{		//Intialize 2 ports to be used for keypad , highest 4 pins in IN_portname is intialized to be input pull up bottons	
+	PORT_vInit('C');
+	PORT_vInit('E');
 	DIO_vSETPINDIR (OUT_portname,1,1);
 	DIO_vSETPINDIR (OUT_portname,2,1);
 	DIO_vSETPINDIR (OUT_portname,3,1);
@@ -18,9 +20,7 @@ void KEYPAD_INIT(unsigned char OUT_portname,unsigned char IN_portname)//Intializ
 	DIO_vEABLEPULLUP(IN_portname,5);
 	DIO_vEABLEPULLUP(IN_portname,6);
 	DIO_vEABLEPULLUP(IN_portname,7);
-
 }
-
 unsigned char KEYPAD_u8READ(unsigned char OUT_portname,unsigned char IN_portname)
 	// this function reads what is pressed on keypad *send to this function port names that the keypad is connected to it*
 {
@@ -57,7 +57,8 @@ unsigned char KEYPAD_u8READ(unsigned char OUT_portname,unsigned char IN_portname
 														return returnValue;
 													}
 
-unsigned char KEYPAD_u8READ2(unsigned char OUT_portname,unsigned char IN_portname)// this function reads what is pressed on keypad *send to this function port names that the keypad is connected to it*
+unsigned char KEYPAD_u8READ2(unsigned char OUT_portname,unsigned char IN_portname)
+								// this function reads what is pressed on keypad *send to this function port names that the keypad is connected to it*
 																			// it return the charachter pressed and it returns 0xFF if no key is pressed
 {
 	char row,coloumn,temp;
@@ -84,8 +85,6 @@ unsigned char KEYPAD_u8READ2(unsigned char OUT_portname,unsigned char IN_portnam
 																	{
 																		break;
 																	}	
-																	
-															}
+																}
 															return returnValue; 
-	
 	}

@@ -11,8 +11,8 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,0);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,0)==0){}
 			GPIO_PORTA_LOCK_R =0x4C4F434B;
-			GPIO_PORTA_CR_R = 0xFF;
-			GPIO_PORTA_DEN_R=0xFF;
+			GPIO_PORTA_CR_R |= 0xFF;
+			GPIO_PORTA_DEN_R|=0xFF;
 			break;
 		}
 		case 'B':
@@ -21,8 +21,8 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,1);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,1)==0){}
 			GPIO_PORTB_LOCK_R =0x4C4F434B;
-			GPIO_PORTB_CR_R = 0xFF;
-			GPIO_PORTB_DEN_R=0xFF;
+			GPIO_PORTB_CR_R |= 0xFF;
+			GPIO_PORTB_DEN_R|=0xFF;
 			break;
 		}
 		case 'C':
@@ -31,8 +31,9 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,2);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,2)==0){}
 			GPIO_PORTC_LOCK_R =0x4C4F434B;
-			GPIO_PORTC_CR_R = 0xFF;
-			GPIO_PORTC_DEN_R=0xFF;
+			GPIO_PORTC_PCTL_R &= ~0xFFFF0000;
+			GPIO_PORTC_CR_R |= 0xF0;
+			GPIO_PORTC_DEN_R |= 0xF0;
 			break;
 		}
 		case 'D':
@@ -41,8 +42,12 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,3);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,3)==0){}
 			GPIO_PORTD_LOCK_R =0x4C4F434B;
-			GPIO_PORTD_CR_R = 0xFF;
-			GPIO_PORTD_DEN_R=0xFF;
+			GPIO_PORTD_CR_R |= 0x1C;
+			GPIO_PORTD_DEN_R |= 0x1C;
+			GPIO_PORTD_PCTL_R &= ~0x000FFF00;
+			GPIO_PORTD_DIR_R |= 0x08;   					// Buzzer output
+			GPIO_PORTD_DIR_R &= ~0x14;  					//SW2 & SW3 inputs
+			GPIO_PORTD_PUR_R |= 0x14;
 			break;
 		}
 		case 'E':
@@ -51,8 +56,9 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,4);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,4)==0){}
 			GPIO_PORTE_LOCK_R =0x4C4F434B;
-			GPIO_PORTE_CR_R = 0xFF;
-			GPIO_PORTE_DEN_R=0xFF;
+			GPIO_PORTE_PCTL_R &= ~0x000FFFF0;
+			GPIO_PORTE_CR_R |= 0x1E;
+			GPIO_PORTE_DEN_R |= 0x1E;
 			break;
 		}
 		case 'F':
@@ -61,8 +67,10 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 			SET_BIT(SYSCTL_RCGCGPIO_R,5);
 			while(READ_BIT(SYSCTL_RCGCGPIO_R,5)==0){}
 			GPIO_PORTF_LOCK_R =0x4C4F434B;
-			GPIO_PORTF_CR_R = 0x1F;
-			GPIO_PORTF_DEN_R=0x1F;
+			GPIO_PORTF_CR_R |= 0x1F;
+			GPIO_PORTF_DIR_R |= 0x0E;  						// LEDs ouput
+			GPIO_PORTF_DIR_R &= ~0x10; 						// sw1 input
+			GPIO_PORTF_DEN_R|=0x1F;
 			break;
 		}
 	}

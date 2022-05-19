@@ -45,9 +45,9 @@ void LCD_init(void)
  SYSCTL_RCGCGPIO |=(1<<1); /* Enable Clock to GPIOB */
  while(READ_BIT(SYSCTL_RCGCGPIO,1)==0){}
  GPIO_PORTB_LOCK_R =0x4C4F434B;
- GPIO_PORTB_PCTL_R &= ~0xFFFFFFFF;
- LCD_DIR |=0xFF; /* Set GPIOB all pins a digital output pins */
- LCD_DEN |=0xFF; /* Declare GPIOB pins as digital pins */
+ GPIO_PORTB_PCTL_R &= ~0xFFFF0FFF;
+ LCD_DIR |=0xF7; /* Set GPIOB all pins a digital output pins */
+ LCD_DEN |=0xF7; /* Declare GPIOB pins as digital pins */
 
  LCD_Cmd(Set5x7FontSize);  /* select 5x7 font size and 2 rows of LCD */
  LCD_Cmd(Function_set_4bit); /* Select 4-bit Mode of LCD */
