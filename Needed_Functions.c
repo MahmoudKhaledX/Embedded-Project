@@ -175,4 +175,20 @@ void Count_Down(unsigned char time)
   }
 }
 
-
+void Flash_LEDs_Buzzer(unsigned char Number_Flashes)
+{
+	unsigned char i;
+	for (i = Number_Flashes;i>0;i--)
+	{
+		LED_vON('F',1); 
+	  LED_vON('F',2);
+	  LED_vON('F',3);
+		BUZZER_vON('D',3);
+	  TIMER_MS(500);
+		LED_vOFF('F',1);
+		LED_vOFF('F',2);
+		LED_vOFF('F',3);
+		BUZZER_vOFF('D',3);
+		TIMER_MS(500);
+	}
+}
