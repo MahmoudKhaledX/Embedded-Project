@@ -1,3 +1,7 @@
+#include "LCDH.h"
+#include "TimerH.h"
+#include "KeyPadH.h"
+#include "Needed_FunctionsH.h"
 void Button_A_Pushed(void)
 {
   LCD_Cmd( 0x01 );  // clear display

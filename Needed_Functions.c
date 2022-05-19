@@ -142,6 +142,18 @@ void Valid_Input2(unsigned char Input)
 			}
 }
 
+void Cooking(unsigned char Cooking_Time)
+{
+	check_SW3('D',2);
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Cooking...");
+	LCD_Cmd(0xC5);
+	LCD_Write_String("left");
+	Count_Down(Cooking_Time);
+	
+}
+
 void Count_Down(unsigned char time)
 {
 	int i;
@@ -162,3 +174,5 @@ void Count_Down(unsigned char time)
 		}
   }
 }
+
+
