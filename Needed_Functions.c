@@ -223,3 +223,20 @@ for( i=minutes;i >=0;i-- )
 	
 	
 		}
+LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
+{
+
+unsigned char minutes_big,minutes_small,seconds_big,seconds_small;
+
+minutes_big=(minutes/10);
+minutes_small=(minutes%10);
+seconds_big=(seconds/10);
+seconds_small=(seconds%10);
+LCD_Write_Number(minutes_big);
+LCD_Write_Number(minutes_small);
+LCD_Write_Char(':');
+LCD_Write_Number(seconds_big);
+LCD_Write_Number(seconds_small);
+
+
+}
