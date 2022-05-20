@@ -3,11 +3,10 @@
 #include "MacrosH.h"
 #include "tm4c123gh6pm.h"
 #define LCD GPIOB   /* Define "LCD" as a symbolic name for GPIOB */
-#define RS 0x20 /* PORTB BIT5 mask */
-#define RW 0x40 /* PORTB BIT6 mask */
-#define EN 0x80 /* PORTB BIT7 mask */
-#define HIGH 1
-#define LOW 0
+#define RS 0x01 /* PORTB BIT0 mask */
+#define RW 0x02 /* PORTB BIT1 mask */
+#define EN 0x04 /* PORTB BIT2 mask */
+
 
 #define LCD_DATA       							(*((volatile unsigned long *)0x400053FC))
 #define LCD_DIR                     (*((volatile unsigned long *)0x40005400))
@@ -37,7 +36,7 @@ void LCD_init(void);  /* LCD initialization function */
 void LCD_Cmd(unsigned char command); /*Used to send commands to LCD */
 void LCD_Write_Char(unsigned char data); /* Writes ASCII character */
 void LCD_Write_Nibble(unsigned char data, unsigned char control); /* Writes 4-bits */
-void LCD_String (char str);	/* Send string to LCD function */
+void LCD_String (char *str);	/* Send string to LCD function */
 
 /* LCD and GPIOB initialization Function */ 
 void LCD_init(void)
@@ -49,12 +48,10 @@ void LCD_init(void)
  LCD_DIR |=0xF7; /* Set GPIOB all pins a digital output pins */
  LCD_DEN |=0xF7; /* Declare GPIOB pins as digital pins */
 
- LCD_Cmd(Set5x7FontSize);  /* select 5x7 font size and 2 rows of LCD */
  LCD_Cmd(Function_set_4bit); /* Select 4-bit Mode of LCD */
  LCD_Cmd(moveCursorRight); /* shift cursor right */
  LCD_Cmd(clear_display); /* clear whatever is written on display */
- LCD_Cmd(cursorBlink);  /* Enable Display and cursor blinking */
- 
+ LCD_Cmd(cursorOff);  /* Enable Display and cursor off */
 }
 
 void LCD_Cmd(unsigned char command)
@@ -77,7 +74,7 @@ void LCD_Write_Nibble(unsigned char data, unsigned char control)
     LCD_DATA = data | control;       /* Set RS and R/W to zero for write operation */
     LCD_DATA = data | control | EN;  /* Provide Pulse to Enable pin to perform write operation */
     TIMER_uS(0);
-    LCD_DATA = data; /*Send data */
+    LCD_DATA = data | control; /*Send data */
     LCD_DATA = 0; /* stop writing data to LCD */
 }
 void LCD_Write_Char(unsigned char data)
@@ -95,4 +92,12 @@ void LCD_Write_String (char *str)	/* Send string to LCD function */
 	{
 		LCD_Write_Char(str[i]);  /* Call LCD data write */
 	}
+}
+
+void LCD_Write_Number(unsigned char data)
+{
+		unsigned char data_ascii = data + 48;
+    LCD_Write_Nibble(data_ascii & 0xF0, RS);    /* Write upper nibble to LCD and RS = 1 to write data */
+    LCD_Write_Nibble(data_ascii << 4, RS);      /* Write lower nibble to LCD and RS = 1 to write data */
+    TIMER_uS(40);
 }
