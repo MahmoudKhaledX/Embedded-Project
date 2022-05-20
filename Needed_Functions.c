@@ -223,7 +223,7 @@ for( i=minutes;i >=0;i-- )
 	
 	
 		}
-LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
+void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 {
 
 unsigned char minutes_big,minutes_small,seconds_big,seconds_small;
