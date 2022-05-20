@@ -14,3 +14,4 @@ void check_SW3(unsigned char portname,unsigned char pinumber);
 void pause_display( unsigned char remaining_time ) ;
 void Stopcooking_dispaly (void);
 void Cooking(unsigned char Cooking_Time);
+void Count_Down_D_Button(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small);
