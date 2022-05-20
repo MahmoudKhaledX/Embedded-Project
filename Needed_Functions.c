@@ -193,36 +193,32 @@ void Flash_LEDs_Buzzer(unsigned char Number_Flashes)
 	}
 }
 
-void Count_Down_D_Button(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small)
+void Count_Down_D_Button( unsigned char minutes, unsigned char seconds)
 {
-
-unsigned char minutes=   minutes_big *10+  minutes_small;
-unsigned char seconds=   seconds_big *10+  seconds_small;
-unsigned char    i;
-unsigned char    j;
-	
-Valid_time(minutes,seconds);
-
-
-for( i=minutes;i >=0;i-- )
-{
-	for(j=seconds  ;j >= 0; j--)
+unsigned char i,temp,j ;
+	for (i=minutes;i>=0;i--)
 	{
-		LCD_Cmd(0x01);
-	  LCD_Cmd(0x80);
-		LCD_Write_Char(i);
-		LCD_Write_String (':');
-		LCD_Write_Char(j);
-		TIMER_1SEC(1);. /* Timer 2 or 1 that makes Check on switches*/
-		
+				if(i !=minutes)
+				{
+					temp=59;
+				}
+				else
+				{		
+				temp=seconds;
+				}
+
+							for(j=temp;j>=0;j--)
+								{
+
+								LCD_WRITE_MINUTES_SECONDS(i,j);
+									TIMER_SEC2(1);
+								
+
+								}
 	}
 
-			
-			}	
-	
-	
-	
-		}
+
+	}
 void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 {
 
