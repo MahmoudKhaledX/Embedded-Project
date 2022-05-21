@@ -241,6 +241,17 @@ void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 		LCD_Write_Number(seconds_small);
 }
 
+void Display_LCD_D(unsigned char seconds_small, unsigned char seconds_big, unsigned char minutes_small, unsigned char minutes_big)
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x85);
+	LCD_Write_Number(minutes_big);
+	LCD_Write_Number(minutes_small);
+	LCD_Write_String(" :");
+	LCD_Write_Number(seconds_big);
+	LCD_Write_Number(seconds_small);
+}
+
 void Continue_cooking(unsigned char remaining_time)
 { 
      LCD_Cmd(0x01);
