@@ -18,4 +18,4 @@ void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds);
 void Count_Down_D_Button(unsigned char minutes, unsigned char seconds);
 void Continue_cooking(unsigned char remaining_time);
 void Finish_Cooking(void);
-
+void Display_LCD_D(unsigned char seconds_small, unsigned char seconds_big, unsigned char minutes_small, unsigned char minutes_big);
