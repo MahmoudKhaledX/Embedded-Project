@@ -53,7 +53,17 @@ void pause_display( unsigned char remaining_time )
    LCD_Write_String("left");
    LCD_Cmd(0xC0);
    LCD_Write_Char(remaining_time);
+	 while(check_SWITCHES('F',0)==0 && check_SWITCHES('F',4)==0) {}
+	 if(check_SWITCHES('F',4)==0)  /*sw1*/
+		{
+			Stopcooking_dispaly();
+		}
+		if(check_SWITCHES('F',0) == 1) /*sw2*/
+		{
+			Continue_cooking(remaining_time);
+		}
 }
+
 void Stopcooking_dispaly (void)	
 {
    LCD_Cmd(0x01); 
@@ -61,7 +71,8 @@ void Stopcooking_dispaly (void)
    LCD_Write_String("Cooking");
    LCD_Cmd(0xc0);
    LCD_Write_String("stopped!");
-	 TIMER_SEC(2);
+	 TIMER_SEC(1);
+	 Microwave_States();
 }
 
 unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small)
@@ -207,32 +218,37 @@ unsigned char i,temp,j ;
 				temp=seconds;
 				}
 
-							for(j=temp;j>=0;j--)
-								{
-
-								LCD_WRITE_MINUTES_SECONDS(i,j);
-									TIMER_SEC2(1);
-								
-
-								}
+					for(j=temp;j>=0;j--)
+					{
+						LCD_WRITE_MINUTES_SECONDS(i,j);
+						TIMER_SEC2(1);
+					}
 	}
+}
 
-
-	}
 void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 {
+		unsigned char minutes_big,minutes_small,seconds_big,seconds_small;
 
-unsigned char minutes_big,minutes_small,seconds_big,seconds_small;
-
-minutes_big=(minutes/10);
-minutes_small=(minutes%10);
-seconds_big=(seconds/10);
-seconds_small=(seconds%10);
-LCD_Write_Number(minutes_big);
-LCD_Write_Number(minutes_small);
-LCD_Write_Char(':');
-LCD_Write_Number(seconds_big);
-LCD_Write_Number(seconds_small);
-
-
+		minutes_big=(minutes/10);
+		minutes_small=(minutes%10);
+		seconds_big=(seconds/10);
+		seconds_small=(seconds%10);
+		LCD_Write_Number(minutes_big);
+		LCD_Write_Number(minutes_small);
+		LCD_Write_Char(':');
+		LCD_Write_Number(seconds_big);
+		LCD_Write_Number(seconds_small);
 }
+
+void Continue_cooking(unsigned char remaining_time)
+{ 
+     LCD_Cmd(0x01);
+     LCD_Cmd(0x80);
+     LCD_Write_String("Cooking...");
+		 LCD_Cmd(0xc5);
+     LCD_Write_String("left");
+     Count_Down(remaining_time);
+     Finish_Cooking();
+}
+
