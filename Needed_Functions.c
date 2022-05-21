@@ -251,4 +251,14 @@ void Continue_cooking(unsigned char remaining_time)
      Count_Down(remaining_time);
      Finish_Cooking();
 }
+void Finish_Cooking(void)	 //Indicates that the cooking operation has finished
+{
+	LCD_Cmd(0x01);
+	LCD_Cmd(0x80);
+	LCD_Write_String("Cooking");
+	LCD_Cmd(0xC0);
+	LCD_Write_String("Done");
+	Flash_LEDs_Buzzer(3);
+}
+
 
