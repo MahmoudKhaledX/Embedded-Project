@@ -38,14 +38,18 @@ void LCD_error_msg3(void)
 {
 	LCD_Cmd(0x01);
 	LCD_Cmd(0x80);
-	LCD_Write_String("Please enter a valid number");
+	LCD_Write_String("Please enter");
+	LCD_Cmd(0xC0);
+	LCD_Write_String("a valid number");
 }
 
 void LCD_error_msg4(void)
 {
 	LCD_Cmd(0x01);
 	LCD_Cmd(0x80);
-	LCD_Write_String("Please choose a valid option");
+	LCD_Write_String("Please enter");
+	LCD_Cmd(0xC0);
+	LCD_Write_String("a valid option");
 	check_SW3('D',2);
 }
 
