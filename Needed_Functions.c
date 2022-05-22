@@ -11,7 +11,9 @@ void Display_Start(void)
 {
 		LCD_Cmd(0x01);
 		LCD_Cmd(0x80);
-		LCD_Write_String("Please Choose an Option");
+    LCD_Write_String("Please choose");
+	  LCD_Cmd(0xC0);
+	  LCD_Write_String("A,B,C or D");
 }
 
 void LCD_error_msg(void)
@@ -26,7 +28,10 @@ void LCD_error_msg2(void)
 {
 	LCD_Cmd(0x01);
 	LCD_Cmd(0x80);
-	LCD_Write_String("Please enter a valid time");
+	LCD_Write_String("Please enter");
+	LCD_Cmd(0xC0);
+	LCD_Write_String("a valid time");
+	
 }
 
 void LCD_error_msg3(void)
