@@ -176,22 +176,32 @@ void Cooking(unsigned char Cooking_Time)
 
 void Count_Down(unsigned char time)
 {
-	int i;
-	for(i=time;i>=0;i--)
+	unsigned char i,temp,j ;
+	for(i=minutes;i>=0;i--)
 	{
-		LCD_Cmd(0xC0);
-		LCD_Write_Char(i);			/*check LCD if the new number overwrites the previous one*/
-		/*LCD_Write_Char('s');*/
-		TIMER_SEC2(1);
-		if(BUTTON_u8READ('D',2)==0)  /*sw3*/
-		{
-			check_SW3('D',2);
-			Continue_cooking(i);
-		}
-		if(check_SWITCHES('F',4) == 1) /*sw1*/
-		{
-			pause_display(i);
-		}
+		if(i !=minutes)
+				{
+					temp=59;
+				}
+				else
+				{		
+				temp=seconds;
+				}
+
+					for(j=temp;j>=0;j--)
+					{
+						LCD_WRITE_MINUTES_SECONDS(i,j);
+						TIMER_SEC2(1);
+						if(BUTTON_u8READ('D',2)==0)  /*sw3*/
+						{
+						check_SW3('D',2);
+						Continue_cooking(i,j);
+						}
+						if(check_SWITCHES('F',4) == 1) /*sw1*/
+						{
+						pause_display(i,j);
+						}
+					}
   }
 }
 
