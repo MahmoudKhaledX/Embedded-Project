@@ -49,24 +49,24 @@ void LCD_error_msg4(void)
 	check_SW3('D',2);
 }
 
-void pause_display( unsigned char remaining_time ) 
+void pause_display( unsigned char minutes, unsigned char seconds ) /*use it if sw1 is pressed one time*/
 {  
    LCD_Cmd(0x01);
    LCD_Cmd(0x80);
    LCD_Write_String("Paused!");
    LCD_Cmd(0xC5);
    LCD_Write_String("left");
-   LCD_Cmd(0xC0);
-   LCD_Write_Char(remaining_time);
-	 while(check_SWITCHES('F',0)==0 && check_SWITCHES('F',4)==0) {}
+   LCD_WRITE_MINUTES_SECONDS(minutes,seconds);		
+	 while((BUTTON_u8READ('D',2)==0) && (check_SWITCHES('F',4)==0)) {}
 	 if(check_SWITCHES('F',4)==0)  /*sw1*/
 		{
 			Stopcooking_dispaly();
 		}
 		if(check_SWITCHES('F',0) == 1) /*sw2*/
 		{
-			Continue_cooking(remaining_time);
+			Continue_cooking(minutes,seconds);
 		}
+   /*LCD_Write_Char('s')*/
 }
 
 void Stopcooking_dispaly (void)	
@@ -257,14 +257,14 @@ void Display_LCD_D(unsigned char seconds_small, unsigned char seconds_big, unsig
 	LCD_Write_Number(seconds_small);
 }
 
-void Continue_cooking(unsigned char remaining_time)
+void Continue_cooking( unsigned char minutes, unsigned char seconds )
 { 
      LCD_Cmd(0x01);
      LCD_Cmd(0x80);
      LCD_Write_String("Cooking...");
 		 LCD_Cmd(0xc5);
      LCD_Write_String("left");
-     Count_Down(remaining_time);
+     Count_Down(minutes,seconds);
      Finish_Cooking();
 }
 void Finish_Cooking(void)	 //Indicates that the cooking operation has finished
