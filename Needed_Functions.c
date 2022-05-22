@@ -146,7 +146,7 @@ void Valid_time(unsigned char minutes,unsigned char seconds)
 
 unsigned char Valid_Input(unsigned char Input)  // Checks if the input given is valid or not
 {
-		if (0<Input && Input<10)
+		if ((48<Input) && (Input<58))
 			return 1;
 		else
 			return 0;
@@ -245,7 +245,7 @@ void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 		seconds_small=(seconds%10);
 		LCD_Write_Number(minutes_big);
 		LCD_Write_Number(minutes_small);
-		LCD_Write_Char(':');
+		LCD_Write_Number(':');
 		LCD_Write_Number(seconds_big);
 		LCD_Write_Number(seconds_small);
 }
