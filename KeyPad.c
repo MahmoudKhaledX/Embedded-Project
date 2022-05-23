@@ -4,7 +4,7 @@
 #include "TimerH.h"
 #include "MacrosH.h"
 #include "tm4c123gh6pm.h"
-void KEYPAD_INIT(unsigned char OUT_portname,unsigned char IN_portname)//Intialize 2 ports to be used for keypad , firt 4 pins in OUT_portname is intialized to be output
+void KEYPAD_INIT(unsigned char IN_portname,unsigned char OUT_portname)//Intialize 2 ports to be used for keypad , firt 4 pins in OUT_portname is intialized to be output
 {		//Intialize 2 ports to be used for keypad , highest 4 pins in IN_portname is intialized to be input pull up bottons	
 	PORT_vInit('C');
 	PORT_vInit('E');
@@ -21,21 +21,21 @@ void KEYPAD_INIT(unsigned char OUT_portname,unsigned char IN_portname)//Intializ
 	DIO_vEABLEPULLUP(IN_portname,6);
 	DIO_vEABLEPULLUP(IN_portname,7);
 }
-unsigned char KEYPAD_u8READ(unsigned char OUT_portname,unsigned char IN_portname)
+unsigned char KEYPAD_u8READ(unsigned char IN_portname,unsigned char OUT_portname)
 	// this function reads what is pressed on keypad *send to this function port names that the keypad is connected to it*
 {
 	unsigned char row,coloumn,temp;
 	unsigned char returnValue=0xFF;
-	unsigned char array[4][4]={{'1','2','3','A'},
-															{'4','5','6','B'},
-															{'7','8','9','C'},
-															{'*','0','#','D'}};
+	unsigned char array[4][4]={{'D','C','B','A'},
+															{'#','9','6','3'},
+															{'0','8','5','2'},
+															{'*','7','4','1'}};
 														do
 														{
 															for(row=0;row<4;row++)
 															{
-																DIO_vWRITELOWPINS(OUT_portname,0xF);
-																DIO_vWRITEPIN(OUT_portname,row,0);
+																DIO_vWRITELOWPINS(OUT_portname,0x1E);
+																DIO_vWRITEPIN(OUT_portname,row+1,0);
 																for(coloumn=0;coloumn<4;coloumn++)
 																{
 																	temp=DIO_u8READPIN(IN_portname,coloumn+4);
@@ -57,21 +57,21 @@ unsigned char KEYPAD_u8READ(unsigned char OUT_portname,unsigned char IN_portname
 														return returnValue;
 													}
 
-unsigned char KEYPAD_u8READ2(unsigned char OUT_portname,unsigned char IN_portname)
+unsigned char KEYPAD_u8READ2(unsigned char IN_portname,unsigned char OUT_portname)
 								// this function reads what is pressed on keypad *send to this function port names that the keypad is connected to it*
 																			// it return the charachter pressed and it returns 0xFF if no key is pressed
 {
-	char row,coloumn,temp;
+	unsigned char row,coloumn,temp;
 	unsigned char returnValue=0xFF;
-	unsigned char array[4][4]={{'1','2','3','A'},
-															{'4','5','6','B'},
-															{'7','8','9','C'},
-															{'*','0','#','D'}};
+	unsigned char array[4][4]={{'D','C','B','A'},
+															{'#','9','6','3'},
+															{'0','8','5','2'},
+															{'*','7','4','1'}};
 	
 															for(row=0;row<4;row++)
 															{
-																DIO_vWRITELOWPINS(OUT_portname,0xF);
-																DIO_vWRITEPIN(OUT_portname,row,0);
+																DIO_vWRITELOWPINS(OUT_portname,0x1E);
+																DIO_vWRITEPIN(OUT_portname,row+1,0);
 																for(coloumn=0;coloumn<4;coloumn++)
 																{
 																	temp=DIO_u8READPIN(IN_portname,coloumn+4);
@@ -88,3 +88,4 @@ unsigned char KEYPAD_u8READ2(unsigned char OUT_portname,unsigned char IN_portnam
 																}
 															return returnValue; 
 	}
+

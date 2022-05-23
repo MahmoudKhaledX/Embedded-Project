@@ -21,7 +21,7 @@ void BUZZER_vTOG(unsigned char portname,unsigned char pinumber)//this function t
 void BUZZER_vON_xSec(unsigned char portname,unsigned char pinumber,unsigned char seconds)	// this function turns  the Buzzer on for x seconds
 {
 	DIO_vWRITEPIN(portname,pinumber,1);
-	TIMER_1SEC(seconds);
+	TIMER_SEC(seconds);
 	DIO_vWRITEPIN(portname,pinumber,0);
 
 }	
