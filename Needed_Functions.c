@@ -162,24 +162,23 @@ void Valid_Input2(unsigned char Input)
 			}
 }
 
-void Cooking(unsigned char Cooking_Time)
+void Cooking( unsigned char minutes, unsigned char seconds )
 {
 	check_SW3('D',2);
+	TIMER_MS(200);
 	LCD_Cmd(0x01);
 	LCD_Cmd(0x80);
 	LCD_Write_String("Cooking...");
-	LCD_Cmd(0xC5);
-	LCD_Write_String("left");
-	Count_Down(Cooking_Time);
+	Count_Down(minutes,seconds);
 	
 }
 
-void Count_Down(unsigned char time)
+void Count_Down(unsigned char minutes, unsigned char seconds)
 {
-	unsigned char i,temp,j ;
-	for(i=minutes;i>=0;i--)
+unsigned char i,temp,j ;
+	for (i=minutes;i>=0;i--)
 	{
-		if(i !=minutes)
+				if(i !=minutes)
 				{
 					temp=59;
 				}
@@ -192,17 +191,17 @@ void Count_Down(unsigned char time)
 					{
 						LCD_WRITE_MINUTES_SECONDS(i,j);
 						TIMER_SEC2(1);
-						if(BUTTON_u8READ('D',2)==0)  /*sw3*/
+						if(BUTTON_u8READ('D',2)==0)  
 						{
 						check_SW3('D',2);
 						Continue_cooking(i,j);
 						}
-						if(check_SWITCHES('F',4) == 1) /*sw1*/
+						if(check_SWITCHES('F',4) == 1) 
 						{
 						pause_display(i,j);
 						}
 					}
-  }
+	}
 }
 
 void Flash_LEDs_Buzzer(unsigned char Number_Flashes)
@@ -223,29 +222,9 @@ void Flash_LEDs_Buzzer(unsigned char Number_Flashes)
 	}
 }
 
-void Count_Down_D_Button( unsigned char minutes, unsigned char seconds)
-{
-unsigned char i,temp,j ;
-	for (i=minutes;i>=0;i--)
-	{
-				if(i !=minutes)
-				{
-					temp=59;
-				}
-				else
-				{		
-				temp=seconds;
-				}
 
-					for(j=temp;j>=0;j--)
-					{
-						LCD_WRITE_MINUTES_SECONDS(i,j);
-						TIMER_SEC2(1);
-					}
-	}
-}
 
-void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
+void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds) // use this to print minutes and seconds on the lcd
 {
 		unsigned char minutes_big,minutes_small,seconds_big,seconds_small;
 
@@ -253,9 +232,10 @@ void LCD_WRITE_MINUTES_SECONDS(unsigned char minutes,unsigned char seconds)
 		minutes_small=(minutes%10);
 		seconds_big=(seconds/10);
 		seconds_small=(seconds%10);
+		LCD_Cmd(0xC5);
 		LCD_Write_Number(minutes_big);
 		LCD_Write_Number(minutes_small);
-		LCD_Write_Number(':');
+	  LCD_Write_String(":");
 		LCD_Write_Number(seconds_big);
 		LCD_Write_Number(seconds_small);
 }
