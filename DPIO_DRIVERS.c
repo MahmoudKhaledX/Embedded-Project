@@ -40,14 +40,15 @@ void PORT_vInit(unsigned char portname) //intialize single port by passing the p
 		case 'd':
 		{
 			SET_BIT(SYSCTL_RCGCGPIO_R,3);
-			while(READ_BIT(SYSCTL_RCGCGPIO_R,3)==0){}
+			while(READ_BIT(SYSCTL_PRGPIO_R,3)==0){}
 			GPIO_PORTD_LOCK_R =0x4C4F434B;
-			GPIO_PORTD_CR_R |= 0x1C;
-			GPIO_PORTD_DEN_R |= 0x1C;
-			GPIO_PORTD_PCTL_R &= ~0x000FFF00;
+			GPIO_PORTD_CR_R |= 0x0E;
+			GPIO_PORTD_DEN_R |= 0x0E;
+			GPIO_PORTD_PCTL_R &= ~0x0000FFF0;
 			GPIO_PORTD_DIR_R |= 0x08;   					// Buzzer output
-			GPIO_PORTD_DIR_R &= ~0x14;  					//SW2 & SW3 inputs
-			GPIO_PORTD_PUR_R |= 0x14;
+			GPIO_PORTD_DIR_R &= ~0x06;  					// SW2 & SW3 inputs
+			GPIO_PORTD_PUR_R |= 0x04;							// SW3 pull-up
+			GPIO_PORTD_PUR_R &= ~0x02;						// SW2 pull-down
 			break;
 		}
 		case 'E':
@@ -387,43 +388,31 @@ unsigned char DIO_u8READPIN(unsigned char portname,unsigned char pinumber) //fun
 		case 'a':
 		{ 
 					return READ_BIT(GPIO_PORTA_DATA_R,pinumber);
-
-			break;
 	}
 		case 'B':
 		case 'b':
 		{ 
 					return READ_BIT(GPIO_PORTB_DATA_R,pinumber);
-
-			break;
 	}
 		case 'C':
 		case 'c':
 		{ 
 					return READ_BIT(GPIO_PORTC_DATA_R,pinumber);
-
-			break;
 	}
 		case 'D':
 		case 'd':
 		{ 
 					return READ_BIT(GPIO_PORTD_DATA_R,pinumber);
-
-			break;
 	}
 		case 'E':
 		case 'e':
 		{ 
 					return READ_BIT(GPIO_PORTE_DATA_R,pinumber);
-
-			break;
 	}
 		case 'F':
 		case 'f':
 		{ 
 					return READ_BIT(GPIO_PORTF_DATA_R,pinumber);
-
-			break;
 	}
 	}
 }
@@ -436,43 +425,31 @@ unsigned char DIO_u8READPORT(unsigned char portname)//function return the read 8
 		case 'a':
 		{ 
 					return GPIO_PORTA_DATA_R;
-
-			break;
 	}
 		case 'B':
 		case 'b':
 		{ 
 					return GPIO_PORTB_DATA_R;
-
-			break;
 	}
 		case 'C':
 		case 'c':
 		{ 
 					return GPIO_PORTC_DATA_R;
-
-			break;
 	}
 		case 'D':
 		case 'd':
 		{ 
 					return GPIO_PORTD_DATA_R;
-
-			break;
 	}
 		case 'E':
 		case 'e':
 		{ 
 					return GPIO_PORTE_DATA_R;
-
-			break;
 	}
 		case 'F':
 		case 'f':
 		{ 
 					return GPIO_PORTF_DATA_R;
-
-			break;
 	}
 	}
 }
@@ -608,7 +585,7 @@ void DIO_vWRITELOWPINS(unsigned char portname,unsigned data) // *send 4 bits*thi
 		case 'E':
 		case 'e':
 		{
-			 		GPIO_PORTE_DATA_R&=0xF0;
+			 		GPIO_PORTE_DATA_R&=~0x1E;
 					GPIO_PORTE_DATA_R|=data;
 			break;
 			}	
