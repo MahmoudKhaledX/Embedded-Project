@@ -96,3 +96,21 @@ break;
 	Total_Time=Time_to_Sec(minutes_big,minutes_small,seconds_big,seconds_small);
 	return(Total_Time);
 }
+
+void Microwave_States(void)
+{
+		unsigned char Keypad_Input;
+		Display_Start();
+	  start:
+		Keypad_Input=KEYPAD_u8READ('C','E');
+		switch (Keypad_Input)
+		{
+			case 'A':
+			{
+			  Button_A_Pushed();
+			  while(BUTTON_u8READ('D',1)==0) {} // wait until SW2 is pressed to start cooking
+				TIMER_MS(200);
+			  Cooking(1,0);
+			  break;
+			}
+			
