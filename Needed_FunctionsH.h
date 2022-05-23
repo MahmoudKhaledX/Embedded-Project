@@ -3,7 +3,7 @@ void LCD_error_msg2(void);
 void LCD_error_msg3(void);
 void LCD_error_msg4(void);
 unsigned char Valid_Input(unsigned char Input);
-void Valid_Input2(unsigned char Input);
+unsigned char Valid_Input2(unsigned char Input);
 void Display_Start(void);
 void Valid_time(unsigned char minutes,unsigned char seconds);
 void LCD_Write_Weight(unsigned char weight);
