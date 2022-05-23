@@ -10,7 +10,7 @@ unsigned char BUTTON_u8READ(unsigned char portname,unsigned char pinumber)// thi
 	return DIO_u8READPIN(portname,pinumber);
 }
 void BUTTON_vINIT_PULLUP(unsigned char portname,unsigned char pinumber)// use this function as defaullt to intialize the button .it intialize a single pin in a single port as a pull up button
-{		DIO_vEABLEPULLUP(portname,pinumber);
+{		
+	  DIO_vEABLEPULLUP(portname,pinumber);
 		DIO_vSETPINDIR(portname,pinumber,0);
-		
 }
