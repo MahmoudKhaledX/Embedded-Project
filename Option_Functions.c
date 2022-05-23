@@ -113,4 +113,17 @@ void Microwave_States(void)
 			  Cooking(1,0);
 			  break;
 			}
+			case 'B':
+			{
+				unsigned char Defrosted_Time;
+				unsigned char minutes;
+				unsigned char seconds;
+				Defrosted_Time=Button_B_Pushed();
+				minutes = Defrosted_Time/60;
+				seconds = Defrosted_Time%60;
+				while(BUTTON_u8READ('D',1)==0) {} // wait until SW2 is pressed to start cooking
+				TIMER_MS(200);
+				Cooking(minutes,seconds);
+				break;
+			}
 			
