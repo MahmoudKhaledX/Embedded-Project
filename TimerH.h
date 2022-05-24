@@ -7,5 +7,3 @@ void TIMERCOUNTER_xHZ2(unsigned long delay);
 void TIMER_MS2(unsigned long times);
 void TIMER_SEC2(unsigned long times);
 void TIMER_uS2(unsigned long times);
-
-

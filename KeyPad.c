@@ -88,4 +88,3 @@ unsigned char KEYPAD_u8READ2(unsigned char IN_portname,unsigned char OUT_portnam
 																}
 															return returnValue; 
 	}
-
