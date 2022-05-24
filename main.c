@@ -2,30 +2,29 @@
 #include "LEDH.h"
 #include "DPIOH.h"
 #include "TimerH.h"
+#include "LCDH.h"
 #include "KeyPadH.h"
 #include "BuzzerH.h"
-#include "LCDH.h"
-
-
+#include "Needed_FunctionsH.h"
+#include "Option_FunctionsH.h"
 
 int main (void)
-{	int x;
-
+{	
+PORT_vInit('d');
 PORT_vInit('f');
-BUTTON_vINIT_PULLUP('F',0);
-LED_vINIT('F',1);
-LED_vINIT('F',3);
+LCD_init();
+KEYPAD_INIT('C','E');
 while(1)
-{
-	
-
-		LED_vON('F',1);
-
-		TIMER_1SEC(10);
-
-
-			LED_vOFF('F',1);
-			TIMER_1SEC(10);
-
-
-}}
+{		
+	   Count_Down(1,0);
+		/*Microwave_States();
+		Finish_Cooking();*/
+}
+}
+/* SW1 F4
+SW2 D4
+SW3 D2
+BUZZER D3
+KEYPAD  COLUMES C4 TO C7
+        ROWS    E1 TO E4  
+LCD PORT B*/

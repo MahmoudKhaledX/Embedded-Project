@@ -18,14 +18,3 @@ void LED_vTOG(unsigned char portname,unsigned char pinumber)//this function togg
 {
 	DIO_vTOGGLEPIN(portname,pinumber);
 }
-/*void LED_Flash(unsigned char portname,unsigned char pinumber,unsigned char NO_Flashes)
-{
-	char i;
-	for (i = NO_Flashes;i>0;i--)
-	{
-		DIO_vWRITEPIN(portname,pinumber,1);
-		TIMER_SEC(1);
-		DIO_vWRITEPIN(portname,pinumber,0);
-		TIMER_SEC(1);
-	}
-}*/
