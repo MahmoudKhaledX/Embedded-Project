@@ -19,10 +19,4 @@ while(1)
 		Microwave_States();
 }
 }
-/* SW1 F4
-SW2 D4
-SW3 D2
-BUZZER D3
-KEYPAD  COLUMES C4 TO C7
-        ROWS    E1 TO E4  
-LCD PORT B*/
+

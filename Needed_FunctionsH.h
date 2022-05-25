@@ -9,7 +9,6 @@ void Valid_time(unsigned char minutes,unsigned char seconds);
 void Flash_LEDs_Buzzer(unsigned char Number_Flashes);
 void LCD_Write_Weight(unsigned char weight);
 unsigned char Time_to_Sec(unsigned char minutes_big,unsigned char minutes_small,unsigned char seconds_big,unsigned char seconds_small);
-/*void Count_Down(unsigned char time);*/
 void Cooking(unsigned char minutes, unsigned char seconds);
 unsigned char check_SWITCHES (unsigned char portname,unsigned char pinumber);
 void check_SW3(unsigned char portname,unsigned char pinumber);

@@ -194,16 +194,15 @@ void pause_display( unsigned char minutes, unsigned char seconds ) // pauses coo
    LCD_WRITE_MINUTES_SECONDS(minutes,seconds);
 	 TIMER_MS(500);
 	 while((BUTTON_u8READ('D',1)==0) && (check_SWITCHES('F',4)==0)) {}
-	 if(check_SWITCHES('F',4)==1)  /*sw1*/
+	 if(check_SWITCHES('F',4)==1)  /*checks sw1*/
 		{
 			Stopcooking_dispaly();
 		}
-		if(BUTTON_u8READ('D',1) == 1) /*sw2*/
+		if(BUTTON_u8READ('D',1) == 1) /*checks sw2*/
 		{
 			TIMER_MS(200);
 			Continue_cooking(minutes,seconds);
 		}
-   /*LCD_Write_Char('s')*/
 }
 
 void Stopcooking_dispaly ()											// Stops the cooking operation if SW1 is pressed twice
