@@ -16,9 +16,7 @@ LCD_init();
 KEYPAD_INIT('C','E');
 while(1)
 {		
-	   Count_Down(1,0);
-		/*Microwave_States();
-		Finish_Cooking();*/
+		Microwave_States();
 }
 }
 /* SW1 F4
