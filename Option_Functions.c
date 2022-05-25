@@ -104,8 +104,8 @@ break;
 void Microwave_States(void)
 {
 		unsigned char Keypad_Input;
+		start:
 		Display_Start();
-	  start:
 		Keypad_Input=KEYPAD_u8READ('C','E');
 		switch (Keypad_Input)
 		{
@@ -117,7 +117,7 @@ void Microwave_States(void)
 			  Cooking(1,0);
 			  break;
 			}
-			case 'B':
+		  case 'B':
 			{
 				unsigned char Defrosted_Time;
 				unsigned char minutes;
@@ -143,4 +143,4 @@ void Microwave_States(void)
 				Cooking(minutes,seconds);
 				break;
 			}
-			
+		
