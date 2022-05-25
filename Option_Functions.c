@@ -143,4 +143,28 @@ void Microwave_States(void)
 				Cooking(minutes,seconds);
 				break;
 			}
+			case 'D':
+			{
+				unsigned char Total_Time;
+				unsigned char minutes;
+				unsigned char seconds;
+				TIMER_MS(500);
+				Total_Time=Button_D_Pushed();
+				minutes = Total_Time/60;
+				seconds = Total_Time%60;
+				while(BUTTON_u8READ('D',1)==0) {}  // wait until SW2 is pressed to start cooking
+				TIMER_MS(200);
+				Cooking(minutes,seconds);
+				break;
+			}
+			default:
+			{
+				LCD_error_msg4();
+				TIMER_SEC(2);
+				goto start;
+			}
+   }
+		Finish_Cooking();
+		goto start;
+}
 		
